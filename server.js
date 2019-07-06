@@ -67,15 +67,16 @@ app.get('/api/exercise/log',(req,res,next)=>{
       limit=req.query.limit;
  if(!userId){
    res.send("Please pass userId");
- }
-  else {
-    userData.find({_id:userId},(err,data)=>{
-      if(err) throw err;
-      if(data){
-        res.send(data)
-      }
-    })
   }
+  else {//else starting
+       userData.find({_id:userId})
+           .sort({date:-1})
+           .limit(limit)
+           .exec(function(err,data){
+              if(err) throw (err);
+              else res.send(data)
+            })
+    }//else ending
 })
 
 // Not found middleware
