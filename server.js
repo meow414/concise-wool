@@ -23,7 +23,7 @@ app.get('/', (req, res) => {
 //SCHEMAS
 let Schema = mongoose.Schema();
 let userSchema = new Schema({
-                      
+                      name
                       })
 
 //app code starts
