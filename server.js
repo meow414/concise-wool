@@ -69,8 +69,15 @@ app.get('/api/exercise/log',(req,res,next)=>{
    res.send("Please pass userId");
   }
   else {//else starting
-       userData.find({_id:req.query.userId},function(err,data){console.log("data=> \n" +typeof data);
-         if(err) throw err;console.log("hi");
+    consol.log("hi")
+       // userData.find({_id:userId},function(err,data){
+       //   if(err) throw err;
+       //   if(data!==undefined){
+       //     res.send("found")
+       //   }else{
+       //     res.json({ error: "Invalid userId" });
+       //   }
+         
 //          if(data.length==0){ return res.send("invalid userId")}
 //          if(typeof data !=="object"){ return res.send("Invalid url")}
 //           else{
@@ -95,7 +102,7 @@ app.get('/api/exercise/log',(req,res,next)=>{
 //           }//second else ending
                                                
               
-            })
+            // })
     }//else ending
 })
 
