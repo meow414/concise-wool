@@ -70,7 +70,7 @@ app.get('/api/exercise/log',(req,res,next)=>{
  if(!userId){
    res.send("Please pass userId");
   }else{
-    userData.find({_id:userId},(err,data)=>{
+    userData.find({_id:userId}).exec((err,data)=>{
            if(err) throw err;
              //sort log array of data in asc order of dates
                                                 data[0].log.sort((a,b)=>{
@@ -83,12 +83,12 @@ app.get('/api/exercise/log',(req,res,next)=>{
                                                 if(from)return (new Date(a.date)>=new Date(from))
                                                 if(to)return (new Date(a.date)<=new Date(to))
                                                })
-         let dateString =logArray[0].date.toDateString()
+      
          
               if(from&&to){res.send({username:data[0].username,userId:data[0]._id,count:data[0].count,log:logArray})}
               else if(from){res.send({username:data[0].username,userId:data[0]._id,count:data[0].count,log:logArray})}
               else if(to){res.send({username:data[0].username,userId:data[0]._id,count:data[0].count,log:logArray})}
-              else res.send({})
+              else res.send({username:data[0].username,userId:data[0]._id,count:data[0].count,log:data[0].log})
              
     })//findbyid ending
   }//else ending
