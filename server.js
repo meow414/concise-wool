@@ -59,6 +59,11 @@ app.post('/api/exercise/add',(req,res,next)=>{
    });
 })
 
+//GET /api/exercise/log?{userId}[&from][&to][&limit]
+app.get('/api/exercise/log?{userId}[&from][&to][&limit]',(req,res,next)=>{
+  
+})
+
 // Not found middleware
 app.use((req, res, next) => {
   return next({status: 404, message: 'not found'})
