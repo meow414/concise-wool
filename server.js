@@ -27,7 +27,7 @@ let userData =mongoose.model('userData',userSchema);
 
 //app code starts
 app.post('/api/exercise/new-user',(req,res,next)=>{
-  let user = new userData({username:req.body.username});
+  let user = new userData({username:req.body.username,count:0});
   user.save((err,data)=>{
     if (err) throw err;
     else res.json({username:data.username, id:data._id});
