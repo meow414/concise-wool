@@ -70,7 +70,27 @@ app.get('/api/exercise/log',(req,res,next)=>{
  if(!userId){
    res.send("Please pass userId");
   }else{
-    
+    userData.find({_id:userId},(err,data)=>{
+           if(err) throw err;
+             //sort log array of data in asc order of dates
+                                                data[0].log.sort((a,b)=>{
+                                                 return new Date(a.date)-new Date(b.date)
+                                               })
+         //return log array data starting from a date,ending upto a date or between from && to range of dates
+         let logArray= data[0].log.filter((a)=>{
+                                               if(from&&to)
+                                                 return (new Date(a.date)>=new Date(from))&&(new Date(a.date)<=new Date(to))
+                                                if(from)return (new Date(a.date)>=new Date(from))
+                                                if(to)return (new Date(a.date)<=new Date(to))
+                                               })
+         
+              if(from&&to){
+              res.send({username:data[0].username,userId:data[0]._id,count:data[0].count,log:logArray})
+              }
+              else if(from){res.send({log:logArray})}
+              else if(to){res.send({log:logArray})}
+              else res.send(data)
+    })//findbyid ending
   }//else ending
  })
 
