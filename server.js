@@ -71,8 +71,10 @@ app.get('/api/exercise/log',(req,res,next)=>{
   else {//else starting
        userData.find({_id:userId},function(err,data){console.log(data)
          if(err) throw (err);
-         if(data==undefined) res.send("Invalid url")
-                                                //sort log array of data in asc order of dates
+         //if(data.length!=0){ return res.send("username already exists")}
+         if(data.length==0){ return res.send("Invalid url")}
+          else{
+             //sort log array of data in asc order of dates
                                                 data[0].log.sort((a,b)=>{
                                                  return new Date(a.date)-new Date(b.date)
                                                })
@@ -83,12 +85,16 @@ app.get('/api/exercise/log',(req,res,next)=>{
                                                 if(from)return (new Date(a.date)>=new Date(from))
                                                 if(to)return (new Date(a.date)<=new Date(to))
                                                })
-              if(from&&to){
+         
+         if(from&&to){
               res.send(logArray)
               }
               else if(from){res.send(logArray)}
               else if(to){res.send(logArray)}
               else res.send(data)
+          }
+                                               
+              
             })
     }//else ending
 })
