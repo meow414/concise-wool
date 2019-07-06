@@ -74,15 +74,16 @@ app.get('/api/exercise/log',(req,res,next)=>{
                                                //   return new Date(b.date)-new Date(a.date)
                                                // })
                                                // console.log(logArray)
-         let logArray= data[0].log.filter((a,b)=>{
-                                                 return new Date(a.date)>=new Date(from)
+         let logArray= data[0].log.filter((a)=>{
+                                               if(from&&to)
+                                                 return (new Date(a.date)>=new Date(from))
                                                })
                                                console.log(logArray)
               if(err) throw (err);
-              if(from){
+              if(from&&to){
               res.send(data)
               }
-              else if(to){res.send("Please pass userId");}
+              else if(from){res.send("Please pass userId");}
               else res.send(data)
             })
     }//else ending
