@@ -83,13 +83,13 @@ app.get('/api/exercise/log',(req,res,next)=>{
                                                 if(from)return (new Date(a.date)>=new Date(from))
                                                 if(to)return (new Date(a.date)<=new Date(to))
                                                })
+         let dateString =logArray[0].date.toDateString()
          
-              if(from&&to){
-              res.send({username:data[0].username,userId:data[0]._id,count:data[0].count,log:logArray})
-              }
-              else if(from){res.send({log:logArray})}
-              else if(to){res.send({log:logArray})}
-              else res.send(data)
+              if(from&&to){res.send({username:data[0].username,userId:data[0]._id,count:data[0].count,log:logArray})}
+              else if(from){res.send({username:data[0].username,userId:data[0]._id,count:data[0].count,log:logArray})}
+              else if(to){res.send({username:data[0].username,userId:data[0]._id,count:data[0].count,log:logArray})}
+              else res.send({})
+             
     })//findbyid ending
   }//else ending
  })
