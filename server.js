@@ -80,12 +80,12 @@ app.get('/api/exercise/log',(req,res,next)=>{
 //Show all usernames and their id
 app.get('/api/exercise/users',(req,res,next)=>{
   userData.find({}, function(err, users) {
-    let username = users.username,
-       userId =users._id;
-    users.map
-    console.log(username)
-    res.send({username:username,userId:userId});  
-  });
+    var userMap = [];
+    users.map((item,i,arr)=>{
+      userMap.push({username:item.username,userId:item._id})
+    })
+    res.send(userMap) 
+   });
 })
 
 // Not found middleware
