@@ -69,10 +69,10 @@ app.get('/api/exercise/log',(req,res,next)=>{
    res.send("Please pass userId");
   }
   else {//else starting
-       userData.find({_id:userId},function(err,data){console.log("data=> \n" +data);
-         if(err) throw (err);
+       userData.find({_id:userId},function(err,data){console.log("data=> \n" +typeof data);
+         if(err) throw err;console.log("hi");
          //if(data.length!=0){ return res.send("username already exists")}
-         if(!data){ return res.send("Invalid url")}
+         if(typeof data !=="object"){ return res.send("Invalid url")}
           else{
              //sort log array of data in asc order of dates
                                                 data[0].log.sort((a,b)=>{
