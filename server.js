@@ -69,7 +69,13 @@ app.get('/api/exercise/log',(req,res,next)=>{
    res.send("Please pass userId");
   }
   else {//else starting
-    consol.log("hi")
+       userData.findById({ _id: userId }, (err, data) => {console.log(data)
+     if(err) throw err;
+     if(data){ return res.send("username already exists")}
+     else{
+      return res.send("userId does not exist")
+     }
+   })
        // userData.find({_id:userId},function(err,data){
        //   if(err) throw err;
        //   if(data!==undefined){
