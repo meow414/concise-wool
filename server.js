@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 
 //SCHEMAS
 let Schema = mongoose.Schema;
-let userSchema =  new Schema({ username: String,count:Number,log:Array });
+let userSchema =  new Schema({ username: String,count:Number,log:[{"description":String,"duration":Number,"date":{ type: Date, default: Date.now }}] });
 let userData =mongoose.model('userData',userSchema);
 
 //app code starts
@@ -35,7 +35,13 @@ app.post('/api/exercise/new-user',(req,res,next)=>{
 })
 
 app.post('/api/exercise/add',(req,res,next)=>{
-  userData
+  console.log(req.body) //count also
+  userData.find({_id:req.body.userId},(err,data)=>{
+    if(err) throw err;
+   if(data){
+   res.json({username:data.username,id})
+   }
+   });
 })
 
 // Not found middleware
