@@ -73,9 +73,11 @@ app.get('/api/exercise/log',(req,res,next)=>{
            .exec(function(err,data){console.log(data[0].username)
               if(err) throw (err);
               else if(from){
-                data[0].log.filter((a,b)=>{
-                  
-                });//return res.send("hi")
+                let aplha =data[0].log.filter((a,b)=>{
+                  return new Date(a)-new Date(b)
+                });
+                console.log(alpha)
+            //return res.send("hi")
               }
               else if(to){res.send("Please pass userId");}
               else res.send(data)
