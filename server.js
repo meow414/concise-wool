@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 
 //SCHEMAS
 let Schema = mongoose.Schema;
-let userSchema =  new Schema({ username: String,count:Number,log:[{"description":String,"duration":Number,"date":{ type: Date, default: Date.now }}] });
+let userSchema =  new Schema({ username: String,count:Number,log:[{"description":String,"duration":Number,"date":{ type: Date, default: Date() }}] });
 let userData =mongoose.model('userData',userSchema);
 
 //app code starts
@@ -39,7 +39,7 @@ app.post('/api/exercise/add',(req,res,next)=>{
   userData.findOneAndUpdate({_id:req.body.userId},{$inc:{count:1},$set:{log:[{description:req.body.description,duration:req.body.duration,date:req.body.date}]}},(err,data)=>{
     if(err) throw err;
    if(data){
-   res.json({username:data.username,userId:data._id,count:data.count+1,log:[{"description":req.body.description,"duration":req.body.duration,"date":req.body.date||Date.now() }]})
+   res.json({username:data.username,userId:data._id,count:data.count+1,log:[{"description":req.body.description,"duration":req.body.duration,"date":req.body.date||Date()}]})
    }
    });
 })
