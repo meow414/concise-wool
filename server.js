@@ -33,8 +33,11 @@ let userData =mongoose.model('userData',userSchema);
 //add new user and gve back username and userId
 app.post('/api/exercise/new-user',(req,res,next)=>{
    userData.find({ username: req.body.username }, (err, data) => {
+     console.log(req.body.username )
      if(err) throw err;
-     if(data) return res.json({username:data[0].username,userId:data[0]._id})
+     if(data){ return res.json({username:data[0].username,userId:data[0]._id})
+             }
+     else if(data==undefined){console.log('not found')}
    })
   // let user = new userData({username:req.body.username,count:0});
   // user.save((err,data)=>{
