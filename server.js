@@ -30,6 +30,7 @@ let userSchema =  new Schema({ username: String,count:Number,log:[{"description"
 let userData =mongoose.model('userData',userSchema);
 
 //app code starts
+//add new user and gve back username and userId
 app.post('/api/exercise/new-user',(req,res,next)=>{
   let user = new userData({username:req.body.username,count:0});
   user.save((err,data)=>{
@@ -37,9 +38,8 @@ app.post('/api/exercise/new-user',(req,res,next)=>{
     else res.json({username:data.username, userId:data._id});
   })
 })
-
+//add exercise to a given userId with details and return json details of current exercise added
 app.post('/api/exercise/add',(req,res,next)=>{
-  console.log(req.body) //count also
   let d;
   if(req.body.date==''){
     d = new Date();
@@ -48,7 +48,7 @@ app.post('/api/exercise/add',(req,res,next)=>{
   userData.findOneAndUpdate({_id:req.body.userId},{$inc:{count:1},$push:{log:[{description:req.body.description,duration:req.body.duration,date:req.body.date||d}]}},(err,data)=>{
     if(err) throw err;
     if(data){
-   res.json({username:data.username,userId:data._id,count:data.count+1,log:[{"description":req.body.description,"duration":req.body.duration,"date":req.body.date||d}]})
+   res.json({username:data.username,userId:data._id,"description":req.body.description,"duration":req.body.duration,"date":req.body.date||d})
    }
    });
 })
