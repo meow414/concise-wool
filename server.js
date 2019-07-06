@@ -60,7 +60,7 @@ app.post('/api/exercise/add',(req,res,next)=>{
 })
 
 //GET /api/exercise/log?{userId}[&from][&to][&limit]
-app.get('/api/exercise/log?:userId&:from&:to&:limit',(req,res,next)=>{
+app.get('/api/exercise/log?{userId}[&from][&to][&limit]',(req,res,next)=>{
   
 })
 
