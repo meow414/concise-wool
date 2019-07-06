@@ -9,6 +9,10 @@ mongoose.connect(process.env.MONGO_URI,{ useNewUrlParser: true } || 'mongodb://l
         .then(() => console.log('MongoDB Connected'))
         .catch(err => console.log(err));
 
+//deprecation fixes
+mongoose.set('useFindAndModify', false);
+mongoose.set('useCreateIndex', true);
+
 app.use(cors())
 
 app.use(bodyParser.urlencoded({extended: false}))
