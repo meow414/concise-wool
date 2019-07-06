@@ -70,12 +70,16 @@ app.get('/api/exercise/log',(req,res,next)=>{
   }
   else {//else starting
        userData.find({_id:userId})
-           .limit(limit)
            .exec(function(err,data){
               if(err) throw (err);
               else res.send(data)
             })
     }//else ending
+})
+
+//Show all usernames and their id
+app.get('api/exercise/users',(req,res,next)=>{
+  
 })
 
 // Not found middleware
