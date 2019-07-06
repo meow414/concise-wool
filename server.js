@@ -45,12 +45,9 @@ app.post('/api/exercise/add',(req,res,next)=>{
     d = new Date();
     d = d.toDateString();
   } 
-  userData.findOneAndUpdate({_id:req.body.userId},{$inc:{count:1}},(err,data)=>{
+  userData.findOneAndUpdate({_id:req.body.userId},{$inc:{count:1},$push:{log:[{description:req.body.description,duration:req.body.duration,date:req.body.date||d}]}},(err,data)=>{
     if(err) throw err;
-    let uniqueUser =new userData();
-    uniqueUser.log.push[{description:req.body.description,duration:req.body.duration,date:req.body.date||d}];
-    uniqueUser.save((e,u) => { console.log('New user saved!'); });
-   if(data){
+    if(data){
    res.json({username:data.username,userId:data._id,count:data.count+1,log:[{"description":req.body.description,"duration":req.body.duration,"date":req.body.date||d}]})
    }
    });
