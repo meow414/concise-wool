@@ -9,7 +9,7 @@ mongoose.connect(process.env.MONGO_URI,{ useNewUrlParser: true } || 'mongodb://l
         .then(() => console.log('MongoDB Connected'))
         .catch(err => console.log(err));
 
-//deprecation fixes
+//mongoose deprecation fixes
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
 
@@ -60,7 +60,7 @@ app.post('/api/exercise/add',(req,res,next)=>{
 })
 
 //GET /api/exercise/log?{userId}[&from][&to][&limit]
-app.get('/api/exercise/log?{userId}[&from][&to][&limit]',(req,res,next)=>{
+app.get('/api/exercise/log?:userId&:from&:to&:limit',(req,res,next)=>{
   
 })
 
