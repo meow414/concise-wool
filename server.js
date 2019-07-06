@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
 let Schema = mongoose.Schema();
 let userSchema = new Schema({
                       name
-                      })
+                      }),  { id: false });
 
 //app code starts
 app.post('/api/exercise/new-user',(req,res,next)=>{
