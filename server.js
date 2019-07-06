@@ -70,7 +70,6 @@ app.get('/api/exercise/log',(req,res,next)=>{
   }
   else {//else starting
        userData.find({_id:userId})
-           .sort({log[date]:'asc'})
            .limit(limit)
            .exec(function(err,data){
               if(err) throw (err);
