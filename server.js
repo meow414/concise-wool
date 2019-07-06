@@ -61,52 +61,18 @@ app.post('/api/exercise/add',(req,res,next)=>{
 
 //GET /api/exercise/log?{userId}[&from][&to][&limit]
 app.get('/api/exercise/log',(req,res,next)=>{
+  
   let userId = req.query.userId,
       from=req.query.from,
       to=req.query.to,
       limit=req.query.limit;
+  
  if(!userId){
    res.send("Please pass userId");
   }else{
-    let x=userData.where(userId).exists()
-    console.log(x)
-    res.send(x)
-    // userData.findById({_id:userId},(err,data)=>{
-    //      if(err) throw err;
-    //      if(data.length!=0){
-    //        res.send(data)
-    //      }else{
-    //        res.send({ error: "Invalid userId" });
-    //      }
-    //    })
-  }
- 
-         
-
-//              //sort log array of data in asc order of dates
-//                                                 data[0].log.sort((a,b)=>{
-//                                                  return new Date(a.date)-new Date(b.date)
-//                                                })
-//          //return log array data starting from a date,ending upto a date or between from && to range of dates
-//          let logArray= data[0].log.filter((a)=>{
-//                                                if(from&&to)
-//                                                  return (new Date(a.date)>=new Date(from))&&(new Date(a.date)<=new Date(to))
-//                                                 if(from)return (new Date(a.date)>=new Date(from))
-//                                                 if(to)return (new Date(a.date)<=new Date(to))
-//                                                })
-         
-//          if(from&&to){
-//               res.send(logArray)
-//               }
-//               else if(from){res.send(logArray)}
-//               else if(to){res.send(logArray)}
-//               else res.send(data)
-//           }//second else ending
-                                               
-              
-            // })
     
-})
+  }//else ending
+ })
 
 //Show all usernames and their id
 app.get('/api/exercise/users',(req,res,next)=>{
