@@ -69,22 +69,17 @@ app.get('/api/exercise/log',(req,res,next)=>{
    res.send("Please pass userId");
   }
   else {//else starting
-      userData.exists({_id:userId},(err,data)=>{
-        console.log(data)
-        res.send(data)
-      })
-    
-       // userData.find({_id:userId},function(err,data){
-       //   if(err) throw err;
-       //   if(data!==undefined){
-       //     res.send("found")
-       //   }else{
-       //     res.json({ error: "Invalid userId" });
-       //   }
+
+       userData.find({userId},function(err,data){console.log(data)
+         if(err) throw err;
+         if(data.length!=0){
+           res.send("found")
+         }else{
+           res.json({ error: "Invalid userId" });
+         }
+       })
          
-//          if(data.length==0){ return res.send("invalid userId")}
-//          if(typeof data !=="object"){ return res.send("Invalid url")}
-//           else{
+
 //              //sort log array of data in asc order of dates
 //                                                 data[0].log.sort((a,b)=>{
 //                                                  return new Date(a.date)-new Date(b.date)
@@ -107,7 +102,7 @@ app.get('/api/exercise/log',(req,res,next)=>{
                                                
               
             // })
-    }//else ending
+    
 })
 
 //Show all usernames and their id
