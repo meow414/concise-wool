@@ -22,11 +22,17 @@ app.get('/', (req, res) => {
 
 //SCHEMAS
 let Schema = mongoose.Schema;
-let userSchema =  new Schema({ username: String,count:Number,log;Arry });
+let userSchema =  new Schema({ username: String,count:Number,log:Array });
+let userData =mongoose.model('userData',userSchema);
 
 //app code starts
 app.post('/api/exercise/new-user',(req,res,next)=>{
-  
+  let user = new userData({username:req.body.username});
+  user.save((err,data)=>{
+    if (err) throw err;
+    else res.json({username:data.username, id:data._id});
+  })
+  //res.json({username:req.body.username});
 })
 
 
