@@ -67,17 +67,17 @@ app.get('/api/exercise/log',(req,res,next)=>{
       limit=req.query.limit;
  if(!userId){
    res.send("Please pass userId");
-  }
-  else {//else starting
-
-       userData.find({userId},function(err,data){console.log(data)
+  }else{
+    userData.findById({_id:userId},function(err,data){console.log(data)
          if(err) throw err;
          if(data.length!=0){
-           res.send("found")
+           res.send(data)
          }else{
-           res.json({ error: "Invalid userId" });
+           res.send({ error: "Invalid userId" });
          }
        })
+  }
+ 
          
 
 //              //sort log array of data in asc order of dates
