@@ -30,16 +30,16 @@ app.post('/api/exercise/new-user',(req,res,next)=>{
   let user = new userData({username:req.body.username,count:0});
   user.save((err,data)=>{
     if (err) throw err;
-    else res.json({username:data.username, id:data._id});
+    else res.json({username:data.username, userId:data._id});
   })
 })
 
 app.post('/api/exercise/add',(req,res,next)=>{
   console.log(req.body) //count also
-  userData.findOneAndUpdate({_id:req.body.userId},{$set:{count:0},$set:{log:[{description:req.body.description,duration:req.body.duration,date:req.body.date}]}},(err,data)=>{
+  userData.findOneAndUpdate({_id:req.body.userId},{$inc:{count:1},$set:{log:[{description:req.body.description,duration:req.body.duration,date:req.body.date}]}},(err,data)=>{
     if(err) throw err;
    if(data){
-   res.json({username:data.username,id:data._id})
+   res.json({username:data.username,userId:data._id,count:data.count+1,log:[{"description":req.body.description,"duration":req.body.duration,"date":req.body.date||Date.now() }]})
    }
    });
 })
