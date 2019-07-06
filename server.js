@@ -33,18 +33,16 @@ let userData =mongoose.model('userData',userSchema);
 //add new user and gve back username and userId
 app.post('/api/exercise/new-user',(req,res,next)=>{
    userData.find({ username: req.body.username }, (err, data) => {
-     console.log(req.body.username )
      if(err) throw err;
-     if(data){ return res.json({username:data[0].username,userId:data[0]._id})
-             }
-     else if(data==undefined){console.log('not found')}
+     if(data.length!=0){ return res.send("username already exists")}
+     else{
+       let user = new userData({username:req.body.username,count:0});
+       user.save((err,data)=>{
+        if (err) throw err;
+        else res.json({username:data.username, userId:data._id});
+       })
+     }
    })
-  // let user = new userData({username:req.body.username,count:0});
-  // user.save((err,data)=>{
-  //   if (err) throw err;
-  //   else res.json({username:data.username, userId:data._id});
-  // })
-  
 })
 //add exercise to a given userId with details and return json details of current exercise added
 app.post('/api/exercise/add',(req,res,next)=>{
