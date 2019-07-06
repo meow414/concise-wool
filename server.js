@@ -66,7 +66,10 @@ app.get('/api/exercise/log',(req,res,next)=>{
       to=req.query.to,
       limit=req.query.limit;
   console.log(req.query)
-  res.send(req.query);
+ if(userId){
+   res.send(req.query);
+ }
+  
 })
 
 // Not found middleware
