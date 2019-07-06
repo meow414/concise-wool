@@ -36,10 +36,10 @@ app.post('/api/exercise/new-user',(req,res,next)=>{
 
 app.post('/api/exercise/add',(req,res,next)=>{
   console.log(req.body) //count also
-  userData.find({_id:req.body.userId},(err,data)=>{
+  userData.findOneAndUpdate({_id:req.body.userId},{$set:{count:0},$set:{log:[{description:req.body.description,duration:req.body.duration,date:req.body.date}]}},(err,data)=>{
     if(err) throw err;
    if(data){
-   res.json({username:data.username,id})
+   res.json({username:data.username,id:data._id})
    }
    });
 })
