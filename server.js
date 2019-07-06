@@ -37,16 +37,16 @@ app.post('/api/exercise/new-user',(req,res,next)=>{
 app.post('/api/exercise/add',(req,res,next)=>{
   console.log(req.body) //count also
   let d;
-  if(req.body.date==null){
+  if(req.body.date==''){
     d = new Date();
     d = d.toDateString();
-  } console.log(d)
-  // userData.findOneAndUpdate({_id:req.body.userId},{$inc:{count:1},$set:{log:[{description:req.body.description,duration:req.body.duration,date:req.body.date||d}]}},(err,data)=>{
-  //   if(err) throw err;
-  //  if(data){
-  //  res.json({username:data.username,userId:data._id,count:data.count+1,log:[{"description":req.body.description,"duration":req.body.duration,"date":req.body.date||d}]})
-  //  }
-  //  });
+  } 
+  userData.findOneAndUpdate({_id:req.body.userId},{$inc:{count:1},$set:{log:[{description:req.body.description,duration:req.body.duration,date:req.body.date||d}]}},(err,data)=>{
+    if(err) throw err;
+   if(data){
+   res.json({username:data.username,userId:data._id,count:data.count+1,log:[{"description":req.body.description,"duration":req.body.duration,"date":req.body.date||d}]})
+   }
+   });
 })
 
 // Not found middleware
