@@ -70,9 +70,13 @@ app.get('/api/exercise/log',(req,res,next)=>{
   }
   else {//else starting
        userData.find({_id:userId})
-           .exec(function(err,data){
+           .exec(function(err,data){console.log(data[0].username)
               if(err) throw (err);
-              else if(from){res.send("Please pass userId");}
+              else if(from){
+                data[0].log.filter((a,b)=>{
+                  
+                });//return res.send("hi")
+              }
               else if(to){res.send("Please pass userId");}
               else res.send(data)
             })
