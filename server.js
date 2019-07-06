@@ -68,14 +68,14 @@ app.get('/api/exercise/log',(req,res,next)=>{
  if(!userId){
    res.send("Please pass userId");
   }else{
-    userData.findById({_id:userId},function(err,data){console.log(data)
+    userData.findById({_id:userId},(err,data)=>{console.log(data),(err,data)=>{
          if(err) throw err;
          if(data.length!=0){
            res.send(data)
          }else{
            res.send({ error: "Invalid userId" });
          }
-       })
+       }})
   }
  
          
