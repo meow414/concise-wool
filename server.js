@@ -32,9 +32,11 @@ app.post('/api/exercise/new-user',(req,res,next)=>{
     if (err) throw err;
     else res.json({username:data.username, id:data._id});
   })
-  //res.json({username:req.body.username});
 })
 
+app.post('/api/exercise/add',(req,res,next)=>{
+  userData
+})
 
 // Not found middleware
 app.use((req, res, next) => {
