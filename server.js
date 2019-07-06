@@ -75,7 +75,7 @@ app.get('/api/exercise/log',(req,res,next)=>{
                                                // })
                                                // console.log(logArray)
          let logArray= data[0].log.filter((a,b)=>{
-                                                 return new Date(a.date)-new Date(from)
+                                                 return new Date(a.date)>=new Date(from)
                                                })
                                                console.log(logArray)
               if(err) throw (err);
