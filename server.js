@@ -69,30 +69,30 @@ app.get('/api/exercise/log',(req,res,next)=>{
    res.send("Please pass userId");
   }
   else {//else starting
-       userData.find({_id:userId},function(err,data){console.log("data=> \n" +typeof data);
+       userData.find({_id:req.query.userId},function(err,data){console.log("data=> \n" +typeof data);
          if(err) throw err;console.log("hi");
-         if(data.length==0){ return res.send("invalid userId")}
-         if(typeof data !=="object"){ return res.send("Invalid url")}
-          else{
-             //sort log array of data in asc order of dates
-                                                data[0].log.sort((a,b)=>{
-                                                 return new Date(a.date)-new Date(b.date)
-                                               })
-         //return log array data starting from a date,ending upto a date or between from && to range of dates
-         let logArray= data[0].log.filter((a)=>{
-                                               if(from&&to)
-                                                 return (new Date(a.date)>=new Date(from))&&(new Date(a.date)<=new Date(to))
-                                                if(from)return (new Date(a.date)>=new Date(from))
-                                                if(to)return (new Date(a.date)<=new Date(to))
-                                               })
+//          if(data.length==0){ return res.send("invalid userId")}
+//          if(typeof data !=="object"){ return res.send("Invalid url")}
+//           else{
+//              //sort log array of data in asc order of dates
+//                                                 data[0].log.sort((a,b)=>{
+//                                                  return new Date(a.date)-new Date(b.date)
+//                                                })
+//          //return log array data starting from a date,ending upto a date or between from && to range of dates
+//          let logArray= data[0].log.filter((a)=>{
+//                                                if(from&&to)
+//                                                  return (new Date(a.date)>=new Date(from))&&(new Date(a.date)<=new Date(to))
+//                                                 if(from)return (new Date(a.date)>=new Date(from))
+//                                                 if(to)return (new Date(a.date)<=new Date(to))
+//                                                })
          
-         if(from&&to){
-              res.send(logArray)
-              }
-              else if(from){res.send(logArray)}
-              else if(to){res.send(logArray)}
-              else res.send(data)
-          }
+//          if(from&&to){
+//               res.send(logArray)
+//               }
+//               else if(from){res.send(logArray)}
+//               else if(to){res.send(logArray)}
+//               else res.send(data)
+//           }//second else ending
                                                
               
             })
