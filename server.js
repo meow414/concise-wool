@@ -60,9 +60,13 @@ app.post('/api/exercise/add',(req,res,next)=>{
 })
 
 //GET /api/exercise/log?{userId}[&from][&to][&limit]
-app.get('/api/exercise/log?:userId&from&to&limit',(req,res,next)=>{
-  let user = req.params.userId,;
-  
+app.get('/api/exercise/log',(req,res,next)=>{
+  let userId = req.query.userId,
+      from=req.query.from,
+      to=req.query.to,
+      limit=req.query.limit;
+  console.log(req.query)
+  res.send(req.query);
 })
 
 // Not found middleware
