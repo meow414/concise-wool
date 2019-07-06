@@ -70,14 +70,17 @@ app.get('/api/exercise/log',(req,res,next)=>{
   }
   else {//else starting
        userData.find({_id:userId},function(err,data){//console.log(data[0].log);
-                                               let logArray= data[0].log.sort((a,b)=>{
-                                                 return new Date(b.date)-new Date(a.date)
+                                               // let logArray= data[0].log.sort((a,b)=>{
+                                               //   return new Date(b.date)-new Date(a.date)
+                                               // })
+                                               // console.log(logArray)
+         let logArray= data[0].log.filter((a,b)=>{
+                                                 return new Date(a.date)-new Date(from)
                                                })
                                                console.log(logArray)
               if(err) throw (err);
               if(from){
-              
-                res.send("organise by date")
+              res.send(data)
               }
               else if(to){res.send("Please pass userId");}
               else res.send(data)
