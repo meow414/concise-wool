@@ -19,10 +19,6 @@ h1 {
   font-weight: bold;
 }
 
-p {
-  max-width: 900px;
-}
-
 form {
   margin-bottom: 25px;
   padding: 15px;
@@ -69,5 +65,10 @@ code {
 }
 
 .semicontainer{
+  text-align:center;
+}
+
+.sometext{
+  padding:20px;
   text-align:center;
 }
