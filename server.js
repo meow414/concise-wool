@@ -69,7 +69,8 @@ app.get('/api/exercise/log',(req,res,next)=>{
   
  if(!userId){
    res.send("Please pass userId");
-  }else{//mongoose.Types.ObjectId(userId)
+  }else{
+    
     userData.find(mongoose.Types.ObjectId(userId)).exec((err,data)=>{
            if(err) throw err;
            if(data.length==0) return res.send('Invalid userId');
