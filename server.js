@@ -144,25 +144,7 @@ app.get("/api/exercise/log", (req, res, next) => {
           logArray = logArray.slice(0, limit);
         }
 
-        if (from && to) {
-          res.send({
-            username: data[0].username,
-            userId: data[0]._id,
-            count: logArray.length,
-            from: from,
-            to: to,
-            log: logArray
-          });
-        } else if (from) {
-          res.send({
-            username: data[0].username,
-            userId: data[0]._id,
-            count: logArray.length,
-            from: from,
-            to: to,
-            log: logArray
-          });
-        } else if (to) {
+        if (from || to) {
           res.send({
             username: data[0].username,
             userId: data[0]._id,
@@ -175,9 +157,7 @@ app.get("/api/exercise/log", (req, res, next) => {
           res.send({
             username: data[0].username,
             userId: data[0]._id,
-            count: data[0].count,
-            from: from,
-            to: to,
+            count: sortedArray.length,
             log: sortedArray
           });
       }); //exec ending
