@@ -70,9 +70,10 @@ app.get('/api/exercise/log',(req,res,next)=>{
  if(!userId){
    res.send("Please pass userId");
   }else{//mongoose.Types.ObjectId(userId)
-    userData.find({_id:userId}).exec((err,data)=>{
-      console.log(err.name)
+    userData.find(mongoose.Types.ObjectId(userId)).exec((err,data)=>{
+      
            if(err) throw err;
+      
              //sort log array of data in asc order of dates
                                              let sortedArray= data[0].log.sort((a,b)=>{
                                                  return new Date(a.date)-new Date(b.date)
