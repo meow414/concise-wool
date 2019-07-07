@@ -73,11 +73,12 @@ app.get('/api/exercise/log',(req,res,next)=>{
     userData.find({_id:userId}).exec((err,data)=>{
            if(err) throw err;
              //sort log array of data in asc order of dates
-                                                data[0].log.sort((a,b)=>{
+                                             let sortedArray= data[0].log.sort((a,b)=>{
                                                  return new Date(a.date)-new Date(b.date)
                                                })
+                                             
          //return log array data starting from a date,ending upto a date or between from && to range of dates
-         let logArray= data[0].log.filter((a)=>{
+         let logArray= sortedArray.filter((a)=>{
                                                if(from&&to)
                                                  return (new Date(a.date)>=new Date(from))&&(new Date(a.date)<=new Date(to))
                                                 if(from)return (new Date(a.date)>=new Date(from))
@@ -85,13 +86,15 @@ app.get('/api/exercise/log',(req,res,next)=>{
                                                })
          
          if(limit){
-           
+           sortedArray=sortedArray.slice(0,limit);
+           logArray=logArray.slice(0,limit);
          }
+         
            //problem to solve return logArray and data[0].log array items according to set limit,do something about when invalid usrid is passed
               if(from&&to){res.send({username:data[0].username,userId:data[0]._id,count:logArray.length,log:logArray})}
               else if(from){res.send({username:data[0].username,userId:data[0]._id,count:logArray.length,log:logArray})}
               else if(to){res.send({username:data[0].username,userId:data[0]._id,count:logArray.length,log:logArray})}
-              else res.send({username:data[0].username,userId:data[0]._id,count:data[0].count,log:data[0].log})
+              else res.send({username:data[0].username,userId:data[0]._id,count:data[0].count,log:sortedArray})
         
              
     })//exec ending
