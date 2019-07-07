@@ -29,7 +29,21 @@
           <p><strong>GET users's exercise log: </strong><code>GET /api/exercise/log?{userId}[&amp;from][&amp;to][&amp;limit]</code></p>
           <p><strong>{ }</strong> = required, <strong>[ ]</strong> = optional</p>
           <p><strong>from, to</strong> = dates (yyyy-mm-dd); <strong>limit</strong> = number</p>
-      </div>
+      <ol>
+        <strong>User Stories</strong><br/><br/>
+        
+        <li>I can create a user by posting form data username to <strong>/api/exercise/new-user</strong> and returned will be an object with <i>username</i> and <i>_id</i>.</li>
+        <br/>
+        <li>I can get an array of all users by getting <s with the same info as when creating a user.</li>
+        <br/>
+        <li>I can add an exercise to any user by posting form data userId(_id), description, duration, and optionally date to /api/exercise/add. If no date supplied it will use current date. Returned will the the user object with also with the exercise fields added.</li>
+        <br/>
+        <li>I can retrieve a full exercise log of any user by getting /api/exercise/log with a parameter of userId(_id). Return will be the user object with added array log and count (total exercise count).</li>
+        <br/>
+        <li>I can retrieve part of the log of any user by also passing along optional parameters of from & to or limit. (Date format yyyy-mm-dd, limit = int)</li>
+        </ol>
+        
+     </div>
    </body>
 
 </html>
