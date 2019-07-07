@@ -83,12 +83,16 @@ app.get('/api/exercise/log',(req,res,next)=>{
                                                 if(from)return (new Date(a.date)>=new Date(from))
                                                 if(to)return (new Date(a.date)<=new Date(to))
                                                })
-      
-         //problem to solve return logArray and data[0].log array items according to set limit,do something about when invalid usrid is passed
+         
+         if(limit){
+           
+         }
+           //problem to solve return logArray and data[0].log array items according to set limit,do something about when invalid usrid is passed
               if(from&&to){res.send({username:data[0].username,userId:data[0]._id,count:logArray.length,log:logArray})}
               else if(from){res.send({username:data[0].username,userId:data[0]._id,count:logArray.length,log:logArray})}
               else if(to){res.send({username:data[0].username,userId:data[0]._id,count:logArray.length,log:logArray})}
               else res.send({username:data[0].username,userId:data[0]._id,count:data[0].count,log:data[0].log})
+        
              
     })//exec ending
   }//else ending
