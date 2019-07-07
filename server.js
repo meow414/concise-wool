@@ -77,12 +77,12 @@ app.get('/api/exercise/log',(req,res,next)=>{
     userData.find(mongoose.Types.ObjectId(userId)).select('-log._id').exec((err,data)=>{
            if(err) throw err;
            if(data.length==0) return res.send('Invalid userId');
-      (data[0].log.date)
+      
              //sort log array of data in asc order of dates
                                              let sortedArray= data[0].log.sort((a,b)=>{
                                                  return new Date(a.date)-new Date(b.date)
                                                })
-                                             
+                                          
          //return log array data starting from a date,ending upto a date or between from && to range of dates
          let logArray= sortedArray.filter((a)=>{
                                                if(from&&to)
@@ -95,7 +95,9 @@ app.get('/api/exercise/log',(req,res,next)=>{
            sortedArray=sortedArray.slice(0,limit);
            logArray=logArray.slice(0,limit);
          }
-         
+           sortedArray= sortedArray.map((a)=>{
+              return  {description:a.description,a.duration,a.date.toDateString()} 
+            })  
           
               if(from&&to){res.send({username:data[0].username,userId:data[0]._id,count:logArray.length,from:from,to:to,log:logArray})}
               else if(from){res.send({username:data[0].username,userId:data[0]._id,count:logArray.length,from:from,to:to,log:logArray})}
