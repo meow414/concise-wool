@@ -50,9 +50,9 @@ app.post('/api/exercise/add',(req,res,next)=>{
   if(req.body.date==''){
     d = new Date();
     d = d.toDateString();
-  } //{_id:req.body.userId}
-  userData.findOneAndUpdate(mongoose.Types.ObjectId(req.body.userId),{$inc:{count:1},$push:{log:[{description:req.body.description,duration:req.body.duration,date:req.body.date||d}]}},(err,data)=>{
-    if(err) throw err;console.log(data)
+  } //
+  userData.findOneAndUpdate({_id:req.body.userId},{$inc:{count:1},$push:{log:[{description:req.body.description,duration:req.body.duration,date:req.body.date||d}]}},(err,data)=>{
+    if(err) return res.send('Invalid userId');
     if(data){
    res.json({username:data.username,userId:data._id,"description":req.body.description,"duration":req.body.duration,"date":req.body.date||d})
    }
