@@ -69,8 +69,9 @@ app.get('/api/exercise/log',(req,res,next)=>{
   
  if(!userId){
    res.send("Please pass userId");
-  }else{
+  }else{//mongoose.Types.ObjectId(userId)
     userData.find({_id:userId}).exec((err,data)=>{
+      console.log(err.name)
            if(err) throw err;
              //sort log array of data in asc order of dates
                                              let sortedArray= data[0].log.sort((a,b)=>{
@@ -90,7 +91,7 @@ app.get('/api/exercise/log',(req,res,next)=>{
            logArray=logArray.slice(0,limit);
          }
          
-           //problem to solve return logArray and data[0].log array items according to set limit,do something about when invalid usrid is passed
+          
               if(from&&to){res.send({username:data[0].username,userId:data[0]._id,count:logArray.length,log:logArray})}
               else if(from){res.send({username:data[0].username,userId:data[0]._id,count:logArray.length,log:logArray})}
               else if(to){res.send({username:data[0].username,userId:data[0]._id,count:logArray.length,log:logArray})}
