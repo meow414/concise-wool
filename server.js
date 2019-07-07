@@ -50,11 +50,14 @@ app.post('/api/exercise/add',(req,res,next)=>{
   if(req.body.date==''){
     d = new Date();
     d = d.toDateString();
-  } //
-  userData.findOneAndUpdate({_id:req.body.userId},{$inc:{count:1},$push:{log:[{description:req.body.description,duration:req.body.duration,date:req.body.date||d}]}},(err,data)=>{
+  }else{
+    d =  new Date(req.body.date);
+    d = d.toDateString();
+  }
+  userData.findOneAndUpdate({_id:req.body.userId},{$inc:{count:1},$push:{log:[{description:req.body.description,duration:req.body.duration,date:d}]}},(err,data)=>{
     if(err) return res.send('Invalid userId');
     if(data){
-   res.json({username:data.username,userId:data._id,"description":req.body.description,"duration":req.body.duration,"date":req.body.date||d})
+   res.json({username:data.username,userId:data._id,"description":req.body.description,"duration":req.body.duration,"date":d})
    }
    });
 })
