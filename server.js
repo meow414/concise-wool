@@ -50,9 +50,9 @@ app.post('/api/exercise/add',(req,res,next)=>{
   if(req.body.date==''){
     d = new Date();
     d = d.toDateString();
-  } 
-  userData.findOneAndUpdate({_id:req.body.userId},{$inc:{count:1},$push:{log:[{description:req.body.description,duration:req.body.duration,date:req.body.date||d}]}},(err,data)=>{
-    if(err) throw err;
+  } //{_id:req.body.userId}
+  userData.findOneAndUpdate(mongoose.Types.ObjectId(req.body.userId),{$inc:{count:1},$push:{log:[{description:req.body.description,duration:req.body.duration,date:req.body.date||d}]}},(err,data)=>{
+    if(err) throw err;console.log(data)
     if(data){
    res.json({username:data.username,userId:data._id,"description":req.body.description,"duration":req.body.duration,"date":req.body.date||d})
    }
@@ -71,8 +71,8 @@ app.get('/api/exercise/log',(req,res,next)=>{
    res.send("Please pass userId");
   }else{//mongoose.Types.ObjectId(userId)
     userData.find(mongoose.Types.ObjectId(userId)).exec((err,data)=>{
-      
            if(err) throw err;
+           if(data.length==0) return res.send('Invalid userId');
       
              //sort log array of data in asc order of dates
                                              let sortedArray= data[0].log.sort((a,b)=>{
