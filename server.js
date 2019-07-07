@@ -71,7 +71,7 @@ app.get('/api/exercise/log',(req,res,next)=>{
    res.send("Please pass userId");
   }else{
     
-    userData.find(mongoose.Types.ObjectId(userId)).exec((err,data)=>{
+    userData.find(mongoose.Types.ObjectId(userId)).select('-log._id').exec((err,data)=>{
            if(err) throw err;
            if(data.length==0) return res.send('Invalid userId');
       
@@ -94,10 +94,10 @@ app.get('/api/exercise/log',(req,res,next)=>{
          }
          
           
-              if(from&&to){res.send({username:data[0].username,userId:data[0]._id,count:logArray.length,log:logArray})}
-              else if(from){res.send({username:data[0].username,userId:data[0]._id,count:logArray.length,log:logArray})}
-              else if(to){res.send({username:data[0].username,userId:data[0]._id,count:logArray.length,log:logArray})}
-              else res.send({username:data[0].username,userId:data[0]._id,count:data[0].count,log:sortedArray})
+              if(from&&to){res.send({username:data[0].username,userId:data[0]._id,count:logArray.length,from:from,to:to,log:logArray})}
+              else if(from){res.send({username:data[0].username,userId:data[0]._id,count:logArray.length,from:from,to:to,log:logArray})}
+              else if(to){res.send({username:data[0].username,userId:data[0]._id,count:logArray.length,from:from,to:to,log:logArray})}
+              else res.send({username:data[0].username,userId:data[0]._id,count:data[0].count,from:from,to:to,log:sortedArray})
         
              
     })//exec ending
