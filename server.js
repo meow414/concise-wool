@@ -77,7 +77,7 @@ app.get('/api/exercise/log',(req,res,next)=>{
     userData.find(mongoose.Types.ObjectId(userId)).select('-log._id').exec((err,data)=>{
            if(err) throw err;
            if(data.length==0) return res.send('Invalid userId');
-      
+      (data[0].log.date)
              //sort log array of data in asc order of dates
                                              let sortedArray= data[0].log.sort((a,b)=>{
                                                  return new Date(a.date)-new Date(b.date)
